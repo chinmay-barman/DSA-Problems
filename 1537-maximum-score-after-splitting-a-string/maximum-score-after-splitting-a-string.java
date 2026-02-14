@@ -1,25 +1,16 @@
 class Solution {
     public int maxScore(String s) {
-        HashMap<Integer,Integer>zero=new HashMap<>();
-        HashMap<Integer,Integer>one=new HashMap<>();
-        int count0=0;
-        int count1=0;
-        for(int i=0;i<s.length();i++){
-            if(s.charAt(i)=='0'){
-                count0++;
-                zero.put(i,count0);
-                one.put(i,count1);
-            }
-            else{
-                count1++;
-                one.put(i,count1);
-                zero.put(i,count0);
-            }
+        int arr[]=new int[s.length()];
+        arr[0]=s.charAt(0)-'0';
+        for(int i=1;i<s.length();i++){
+            arr[i]=arr[i-1]+(s.charAt(i)-'0');
         }
         int max=0;
         for(int i=0;i<s.length()-1;i++){
-            int score = zero.get(i)+(count1-one.get(i));
-            max=Math.max(max,score);
+            int rightOne =arr[s.length()-1]-arr[i];
+            int leftZero=(i+1)-arr[i];
+            int score = rightOne+leftZero;
+            max = Math.max(max,score);
         }
         return max;
     }
