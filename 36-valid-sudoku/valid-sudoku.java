@@ -1,111 +1,34 @@
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-        for(int i=0;i<board.length;i++){
-            HashSet<Character>set=new HashSet<>();
-            for(int j=0;j<board[i].length;j++){
-                if(set.contains(board[i][j]) && board[i][j]!='.'){
-                    return false;
-                }
-                else{
-                    if(board[i][j]!='.'){
-                        set.add(board[i][j]);
-                    }
-                }
-            }
-            
-
+        Set<Character>row[]=new HashSet[9];
+        Set<Character>col[]=new HashSet[9];
+        Set<Character>sub[][] =new HashSet[3][3];
+        for(int i=0;i<9;i++){
+            row[i]=new HashSet<>();
+            col[i]=new HashSet<>();
         }
-        for(int j=0;j<board[0].length;j++){
-            HashSet<Character>set=new HashSet<>();
-            for(int i=0;i<board.length;i++){
-                if(set.contains(board[i][j]) && board[i][j]!='.'){
-                    return false;
-                }
-                else{
-                    if(board[i][j]!='.'){
-                        set.add(board[i][j]);
-                    }
-                }
-            }
-        }
-        HashSet<Character>set1=new HashSet<>();
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
-                if(set1.contains(board[i][j]) && board[i][j]!='.'){
-                    return false;
-                }
-                set1.add(board[i][j]);
+                sub[i][j]=new HashSet<>();
             }
         }
-        HashSet<Character>set2=new HashSet<>();
-        for(int i=0;i<3;i++){
-            for(int j=3;j<6;j++){
-                if(set2.contains(board[i][j]) && board[i][j]!='.'){
+        for(int r=0;r<board.length;r++){
+            for(int c=0;c<board[r].length;c++){
+                if(board[r][c]=='.'){
+                    continue;
+                }
+                if(row[r].contains(board[r][c])){
                     return false;
                 }
-                set2.add(board[i][j]);
-            }
-        }
-        HashSet<Character>set3=new HashSet<>();
-        for(int i=0;i<3;i++){
-            for(int j=6;j<9;j++){
-                if(set3.contains(board[i][j]) && board[i][j]!='.'){
+                else if(col[c].contains(board[r][c])){
                     return false;
                 }
-                set3.add(board[i][j]);
-            }
-        }HashSet<Character>set4=new HashSet<>();
-        for(int i=3;i<6;i++){
-            for(int j=0;j<3;j++){
-                if(set4.contains(board[i][j]) && board[i][j]!='.'){
+                else if(sub[r/3][c/3].contains(board[r][c])){
                     return false;
                 }
-                set4.add(board[i][j]);
-            }
-        }
-        HashSet<Character>set5=new HashSet<>();
-        for(int i=3;i<6;i++){
-            for(int j=3;j<6;j++){
-                if(set5.contains(board[i][j]) && board[i][j]!='.'){
-                    return false;
-                }
-                set5.add(board[i][j]);
-            }
-        }
-        HashSet<Character>set6=new HashSet<>();
-        for(int i=3;i<6;i++){
-            for(int j=6;j<9;j++){
-                if(set6.contains(board[i][j]) && board[i][j]!='.'){
-                    return false;
-                }
-                set6.add(board[i][j]);
-            }
-        }
-        HashSet<Character>set7=new HashSet<>();
-        for(int i=6;i<9;i++){
-            for(int j=0;j<3;j++){
-                if(set7.contains(board[i][j]) && board[i][j]!='.'){
-                    return false;
-                }
-                set7.add(board[i][j]);
-            }
-        }
-        HashSet<Character>set8=new HashSet<>();
-        for(int i=6;i<9;i++){
-            for(int j=3;j<6;j++){
-                if(set8.contains(board[i][j]) && board[i][j]!='.'){
-                    return false;
-                }
-                set8.add(board[i][j]);
-            }
-        }
-        HashSet<Character>set9=new HashSet<>();
-        for(int i=6;i<9;i++){
-            for(int j=6;j<9;j++){
-                if(set9.contains(board[i][j]) && board[i][j]!='.'){
-                    return false;
-                }
-                set9.add(board[i][j]);
+                row[r].add(board[r][c]);
+                col[c].add(board[r][c]);
+                sub[r/3][c/3].add(board[r][c]);
             }
         }
         return true;
