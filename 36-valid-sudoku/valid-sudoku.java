@@ -1,30 +1,29 @@
 class Solution {
     public boolean isValidSudoku(char[][] board) {
-        Set<Character>row[]=new HashSet[9];
-        Set<Character>col[]=new HashSet[9];
-        Set<Character>sub[]=new HashSet[9];
+        HashSet<Character>row[] = new HashSet[9];
+        HashSet<Character>col[] = new HashSet[9];
+        HashSet<Character>subBox[] = new HashSet[9];
         for(int i=0;i<9;i++){
-            row[i]=new HashSet<>();
-            col[i]=new HashSet<>();
-            sub[i]=new HashSet<>();
+            row[i] = new HashSet<>();
+            col[i] = new HashSet<>();
+            subBox[i] = new HashSet<>();
         }
-        for(int r=0;r<9;r++){
-            for(int c=0;c<9;c++){
-                if(board[r][c]=='.'){
-                    continue;
-                }
-                else if(row[r].contains(board[r][c])){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j]!='.' && row[i].contains(board[i][j])){
                     return false;
                 }
-                else if(col[c].contains(board[r][c])){
+                else if(board[i][j]!='.' && col[j].contains(board[i][j])){
                     return false;
                 }
-                else if(sub[(r/3)*3+(c/3)].contains(board[r][c])){
+                else if(board[i][j]!='.' && subBox[((i/3)*3)+(j/3)].contains(board[i][j])){
                     return false;
                 }
-                row[r].add(board[r][c]);
-                col[c].add(board[r][c]);
-                sub[(r/3)*3+(c/3)].add(board[r][c]);
+                if(board[i][j]!='.'){
+                    row[i].add(board[i][j]);
+                    col[j].add(board[i][j]);
+                    subBox[((i/3)*3)+(j/3)].add(board[i][j]);
+                }
             }
         }
         return true;
