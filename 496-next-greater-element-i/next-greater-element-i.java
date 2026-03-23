@@ -3,19 +3,16 @@ class Solution {
         int n = nums2.length;
         int res[] = new int[n];
         Stack<Integer>st = new Stack<>();
-        st.push(nums2[n-1]);
-        res[n-1] = -1;
-        for(int i=n-2;i>=0;i--){
-            while(st.size()>0 && st.peek()<nums2[i]){
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && nums2[i]>nums2[st.peek()]){
+                res[st.peek()] = nums2[i];
                 st.pop();
             }
-            if(st.isEmpty()){
-                res[i] = -1;
-            }
-            else{
-                res[i] = st.peek();
-            }
-            st.push(nums2[i]);
+            st.push(i);
+        }
+        while(!st.isEmpty()){
+            res[st.peek()] = -1;
+            st.pop();
         }
         return res;
     }
