@@ -3,30 +3,10 @@ class Solution {
         if(s.length() != t.length()){
             return false;
         }
-        HashMap<Character,Integer>map = new HashMap<>();
-        for(int i=0;i<s.length();i++){
-            if(map.containsKey(s.charAt(i))){
-                int count = map.get(s.charAt(i));
-                count++;
-                map.put(s.charAt(i),count);
-            }
-            else{
-                map.put(s.charAt(i),1);
-            }
-        }
-        for(int i=0;i<t.length();i++){
-            if(map.containsKey(t.charAt(i))){
-                int count = map.get(t.charAt(i));
-                count--;
-                if(count == -1){
-                    return false;
-                }
-                map.put(t.charAt(i),count);
-            }
-            else{
-                return false;
-            }
-        }
-        return true;
+        char c1[] = s.toCharArray();
+        char c2[] = t.toCharArray();
+        Arrays.sort(c1);
+        Arrays.sort(c2);
+        return Arrays.equals(c1,c2);
     }
 }
