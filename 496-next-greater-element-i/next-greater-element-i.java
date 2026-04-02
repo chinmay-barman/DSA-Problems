@@ -1,41 +1,40 @@
 class Solution {
-    int[] largestNums2(int nums2[]){
-        int n = nums2.length;
-        int res[] = new int[n];
-        Stack<Integer>st = new Stack<>();
-        for(int i=0;i<n;i++){
-            while(!st.isEmpty() && nums2[i]>nums2[st.peek()]){
-                res[st.peek()] = nums2[i];
-                st.pop();
+    private int[] nextGreater(int arr[]){
+        int res[] = new int[arr.length];
+        Stack<Integer> st = new Stack<>();
+        for(int i=0;i<arr.length;i++){
+            while(!st.isEmpty() && arr[i]>arr[st.peek()]){
+                res[st.pop()] = arr[i];
             }
             st.push(i);
         }
         while(!st.isEmpty()){
-            res[st.peek()] = -1;
-            st.pop();
+            res[st.pop()] = -1;
         }
         return res;
     }
-    int findIndex(int nums2[], int target){
-        for(int i=0;i<nums2.length;i++){
-            if(nums2[i]==target){
+    private int findIndex(int arr[], int target){
+        for(int i=0;i<arr.length;i++){
+            if(target == arr[i]){
                 return i;
             }
         }
         return -1;
     }
     public int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        int res2[] = largestNums2(nums2);
-        int res[] = new int[nums1.length];
+        int nextGreaterNums2[] = new int[nums2.length];
+        nextGreaterNums2 = nextGreater(nums2);
+
+        int ans[] = new int[nums1.length];
         for(int i=0;i<nums1.length;i++){
             int index = findIndex(nums2, nums1[i]);
-            if(index!=-1){
-                res[i] = res2[index];
+            if(index==-1){
+                ans[i] = -1;
             }
             else{
-                res[i] = -1;
+                ans[i] = nextGreaterNums2[index];
             }
         }
-        return res;
+        return ans;
     }
 }
