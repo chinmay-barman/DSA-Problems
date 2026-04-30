@@ -1,12 +1,10 @@
 class Solution {
     public int reverse(int n){
-        int count = 0;
         int ans = 0;
         while(n!=0){
             int last = n%10;
             ans = ans*10+last;
             n/=10;
-            count++;
         }
         return ans;
     }
